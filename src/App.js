@@ -1,29 +1,13 @@
 import React from "react";
 import axios from "axios";
 
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { Button, Grid } from "@material-ui/core";
 
 import Lights from "./components/lights";
-import url from "./config";
-
-const darkTheme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#65C7F7",
-      light: "#1cefff",
-      dark: "#000"
-    },
-    secondary: {
-      main: "#fff",
-      light: "#fff",
-      dark: "#000"
-    }
-  }
-});
+import { url, darkTheme } from "./config";
 
 class App extends React.Component {
   constructor(props) {
@@ -42,10 +26,7 @@ class App extends React.Component {
       .get(`${url}/lights`)
       .then(resp => resp.data)
       .then(data => Object.keys(data).map(key => data[key]))
-      .then(out => {
-        console.log(out);
-        this.setState({ lights: out });
-      });
+      .then(out => this.setState({ lights: out }));
   };
 
   componentDidMount() {
