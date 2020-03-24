@@ -8,6 +8,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { green, grey, lightBlue } from "@material-ui/core/colors";
+import { Button } from "@material-ui/core";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -113,7 +114,13 @@ class App extends React.Component {
       <MuiThemeProvider theme={darkTheme}>
         <CssBaseline>
           <Container maxWidth="sm" style={{ marginTop: "5vh" }}>
-            <h1>Lights</h1>
+            <Button
+              onClick={this.get_lights}
+              variant="contained"
+              color="primary"
+            >
+              Refresh
+            </Button>
             {this.state.lights == null ? (
               <h1>Loading</h1>
             ) : (

@@ -1,5 +1,7 @@
 import React from "react";
-import { SketchPicker } from "react-color";
+import axios from "axios";
+
+import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
 import {
   Switch,
   FormGroup,
@@ -11,24 +13,9 @@ import {
   Box,
   Container
 } from "@material-ui/core";
-
-import Green from "@material-ui/core/colors/green";
-
 import { makeStyles } from "@material-ui/core/styles";
 
-import axios from "axios";
-
-const url = "http://192.168.1.12/api/eXbpUKQhYxGRtQRgDKAVlVUzyv0BO8WS5erAYWnu";
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary
-  }
-}));
+import url from "./config";
 
 export default class Light extends React.Component {
   constructor(props) {
@@ -37,11 +24,8 @@ export default class Light extends React.Component {
     this.state = {
       on: props.on,
       bri: props.bri,
-      name: props.name,
-      id: props.id,
       color: props.color,
-      hsl: props.hsl,
-      set: false,
+      set: false
     };
   }
 
@@ -50,7 +34,7 @@ export default class Light extends React.Component {
 
     axios({
       method: "PUT",
-      url: `${url}/lights/${this.state.id}/state`,
+      url: `${url}/lights/${this.props.id}/state`,
       data: {
         on: new_state
       }
@@ -66,7 +50,7 @@ export default class Light extends React.Component {
 
     axios({
       method: "PUT",
-      url: `${url}/lights/${this.state.id}/state`,
+      url: `${url}/lights/${this.props.id}/state`,
       data: {
         bri: bri
       }
@@ -74,61 +58,59 @@ export default class Light extends React.Component {
   };
 
   render() {
-    if (!this.state.set && this.state.color == null) {
-      this.setState({ set: true });
-      console.log(this.state.color);
-    }
-
     const { on, bri, color } = this.state;
-    var rgb = color != null ? { r: color.r, g: color.g, b: color.b } : null;
+    const { r, g, b } = color;
 
     const style = {
-      padding: "10px",
-      marginBottom: "30px",
-      backgroundColor: color != null ? `rgb(${color.r}, ${color.g}, ${color.b})` : "",
-      borderRadius: "10px"
+      container: {
+        margin: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        backgroundColor: color != null ? `rgb(${r}, ${g}, ${b})` : "",
+        borderRadius: "10px"
+      },
+      icon: {
+        marginLeft: 30
+      },
+      iconContainer: {
+        textAlign: "start"
+      },
+      switch: {
+        textAlign: "end"
+      }
     };
 
     return (
-      <Typography
-        component="div"
-        variant="body1"
-        style={style}
-      >
-        <Grid item xs={12}>
-          <Container>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={on}
-                    onChange={this.toggle_on}
-                    color="primary"
-                  />
-                }
-                label={this.state.name}
-                labelPlacement="start"
-                style={{
-                  color: "black"
-                }}
-              />
-              <FormControl>
-                <Slider
-                  value={!on ? 0 : bri}
-                  max={254}
-                  onChange={this.change_bri}
-                  disabled={!on}
-                  valueLabelFormat={`${parseInt((bri / 255) * 100)}%`}
-                  valueLabelDisplay="auto"
-                />
-              </FormControl>
-              {/* <FormControl>
-              <SketchPicker color={rgb} />
-            </FormControl> */}
-            </FormGroup>
-          </Container>
+      <Grid container style={style.container}>
+        <Grid item xs={6} style={style.iconContainer}>
+          <EmojiObjectsIcon
+            fontSize="large"
+            color={on ? "primary" : "disabled"}
+          />
         </Grid>
-      </Typography>
+        <Grid item xs={6} style={style.switch}>
+          <FormControlLabel
+            control={
+              <Switch checked={on} onChange={this.toggle_on} color="primary" />
+            }
+            label={this.props.name}
+            labelPlacement="start"
+            style={{color: "black"}}
+          />
+          ;
+        </Grid>
+        <Grid item xs={12} >
+          <Slider
+            value={!on ? 0 : bri}
+            max={254}
+            onChange={this.change_bri}
+            disabled={!on}
+            valueLabelFormat={`${parseInt((bri / 255) * 100)}%`}
+            valueLabelDisplay="auto"
+          />
+        </Grid>
+      </Grid>
     );
   }
 }

@@ -1,8 +1,6 @@
 import React from "react";
 import Light from "./light";
 
-import { Typography, Grid } from "@material-ui/core";
-
 function xy_to_rgb(x, y, bri) {
   let z, Y, X, Z, r, g, b, maxValue;
 
