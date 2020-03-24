@@ -4,7 +4,7 @@ import axios from "axios";
 import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
 import { Switch, Slider, Grid } from "@material-ui/core";
 
-import url from "../config";
+import {url} from "../config";
 
 export default class Light extends React.Component {
   constructor(props) {
