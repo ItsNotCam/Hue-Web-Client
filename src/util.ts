@@ -1,4 +1,4 @@
-const xy_to_rgb = (x, y, bri) => {
+const XYToRGB = (x: number, y: number, bri: number) => {
   let z, Y, X, Z, r, g, b, maxValue;
 
   z = 1.0 - x - y;
@@ -37,7 +37,7 @@ const xy_to_rgb = (x, y, bri) => {
   };
 };
 
-const rgb_to_xy = (red, green, blue) => {
+const RGBToXY = (red: number, green: number, blue: number) => {
   if (red > 0.04045) {
     red = Math.pow((red + 0.055) / (1.0 + 0.055), 2.4);
   } else red = red / 12.92;
@@ -50,12 +50,12 @@ const rgb_to_xy = (red, green, blue) => {
     blue = Math.pow((blue + 0.055) / (1.0 + 0.055), 2.4);
   } else blue = blue / 12.92;
 
-  var X = red * 0.664511 + green * 0.154324 + blue * 0.162028;
-  var Y = red * 0.283881 + green * 0.668433 + blue * 0.047685;
-  var Z = red * 0.000088 + green * 0.07231 + blue * 0.986039;
-  var x = X / (X + Y + Z);
-  var y = Y / (X + Y + Z);
+  var X: number = red * 0.664511 + green * 0.154324 + blue * 0.162028;
+  var Y: number = red * 0.283881 + green * 0.668433 + blue * 0.047685;
+  var Z: number = red * 0.000088 + green * 0.07231 + blue * 0.986039;
+  var x: number = X / (X + Y + Z);
+  var y: number = Y / (X + Y + Z);
   return [x, y];
 };
 
-export { xy_to_rgb, rgb_to_xy };
+export { XYToRGB as xy_to_rgb, RGBToXY as rgb_to_xy };

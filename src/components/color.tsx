@@ -1,12 +1,16 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
 
-export default class Color extends React.Component {
-  state = {
+export interface IColorState {
+  background: string;
+}
+
+export default class Color extends React.Component<any, IColorState> {
+  state: IColorState = {
     background: '#fff',
   };
 
-  handleChangeComplete = (color) => {
+  handleChangeComplete = (color: any) => {
     this.setState({ background: color.hex });
   };
 

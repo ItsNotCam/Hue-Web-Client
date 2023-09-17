@@ -1,15 +1,38 @@
 import React from "react";
 import axios from "axios";
 
-import EmojiObjectsIcon from "@material-ui/icons/EmojiObjects";
-import { Switch, Slider, Grid } from "@material-ui/core";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
+import { Switch, Slider, Grid } from "@mui/material";
 
 import {url} from "../config";
 
-export default class Light extends React.Component {
-  constructor(props) {
+export interface ILightProps {
+  name: string;
+  id: number;
+  on: boolean;
+  bri: number;
+  color: {
+    r: number,
+    g: number,
+    b: number
+  }
+}
+
+export interface ILightState {
+  on: boolean;
+  bri: number;
+  color: {
+    r: number,
+    g: number,
+    b: number
+  }
+  set: boolean;
+}
+
+
+export default class Light extends React.Component<ILightProps, ILightState> {
+  constructor(props: ILightProps) {
     super(props);
-    this.props = props;
     this.state = {
       on: props.on,
       bri: props.bri,
@@ -18,37 +41,38 @@ export default class Light extends React.Component {
     };
   }
 
-  toggle_on = () => {
-    axios({
+  toggleLights = async() => {
+    const isOn = this.state.on;
+
+    let res: any = await axios({
       method: "PUT",
       url: `${url}/lights/${this.props.id}/state`,
-      data: {
-        on: !this.state.on
-      }
-    }).then(res => {
-      this.setState({
-        on: res.status == 200 ? !this.state.on : this.state.on
-      });
+      data: { on: !isOn }
     });
+    
+    if(res.status === 200) {
+      console.log(res.data);
+      this.setState({ on: !isOn });
+    }
   };
 
-  change_bri = (event, bri) => {
-    const before = this.state.bri;
-
-    this.setState({
-      bri: bri
-    });
-
-    axios({
+  changeBrightness = async (bri: number) => {
+    let res: any = await axios({
       method: "PUT",
       url: `${url}/lights/${this.props.id}/state`,
       data: {
         bri: bri
       }
-    }).then(res => {
-      if (res.status != 200) this.setState({ bri: before });
     });
+    
+    if(res.status === 200) {
+      this.setState({ bri: bri })
+    }
   };
+
+  handleBrightnessChange = async(event: any) => {
+    this.changeBrightness(Number.parseInt(event.target.value));
+  }
 
   render() {
     const { on, bri, color } = this.state;
@@ -86,18 +110,23 @@ export default class Light extends React.Component {
       }
     };
 
+    /*
+        <Grid item xs={7} style={styles.name}>
+        <Grid item xs={3} style={styles.switch}>
+    */
+
     return (
       <Grid container style={styles.container}>
         <Grid item xs={2}>
           <EmojiObjectsIcon fontSize="large" />
         </Grid>
-        <Grid item xs={7} style={styles.name}>
+        <Grid item xs={7}>
           {this.props.name}
         </Grid>
-        <Grid item xs={3} style={styles.switch}>
+        <Grid item xs={3}>
           <Switch
             checked={on}
-            onChange={this.toggle_on}
+            onChange={this.toggleLights}
             color="secondary"
           />
         </Grid>
@@ -106,9 +135,9 @@ export default class Light extends React.Component {
             <Slider
               value={!on ? 0 : bri}
               max={254}
-              onChange={this.change_bri}
+              onChange={this.handleBrightnessChange}
               disabled={!on}
-              valueLabelFormat={`${parseInt((bri / 255) * 100)}%`}
+              valueLabelFormat={`${(bri / 255 * 100)}%`}
               valueLabelDisplay="auto"
               color="secondary"
               style={styles.slider}

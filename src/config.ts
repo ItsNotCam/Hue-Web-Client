@@ -1,11 +1,10 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-
 const user_id = "eXbpUKQhYxGRtQRgDKAVlVUzyv0BO8WS5erAYWnu";
-const url = `http://192.168.1.12/api/${user_id}`;
+const url = `http://192.168.86.119/api/${user_id}`;
 
+/*
+import { createMuiTheme } from "@mui/material";
 const darkTheme = createMuiTheme({
   palette: {
-    type: "dark",
     primary: {
       main: "#65C7F7",
       light: "#1cefff",
@@ -20,3 +19,6 @@ const darkTheme = createMuiTheme({
 });
 
 export { url, darkTheme };
+*/
+
+export {url};
