@@ -1,68 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+# Raspberry Pi Room Temperature Control Application
 
-### `npm start`
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/cameron-young-37b173129/)
+&nbsp;
+[![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/ItsNotCam)
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img src="docs/Demo.gif">
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Overview
 
-### `npm test`
+The Raspberry Pi Room Temperature Control Application is a full-stack web application that allows users to remotely control and monitor the temperature in a room using a Raspberry Pi, while ensuring safety through the control of a heater via a Philips Hue Smart Plug. This application is built using Python, TypeScript, ReactJS, Node.js, asynchronous Websockets, and REST requests.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Temperature Sensing**: The Raspberry Pi collects real-time temperature data in the room to provide accurate information on the current temperature.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- **Remote Control**: Users can set a target temperature through a user-friendly web interface accessible from any device with a browser.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **WebSocket Communication**: Real-time communication between the web UI and the Raspberry Pi is achieved through WebSockets, ensuring seamless updates and responsiveness.
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Python**: The Raspberry Pi communicates with the temperature sensor, listens on the web socket, and controls the Philips Hue Smart Plug using Python.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **ReactJS and TypeScript**: The frontend of the application is developed using ReactJS and Typescript to provide users and developers with the best experience possible
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Asynchronous Websockets**: Asynchronous WebSockets ensure efficient real-time communication between the frontend and the Raspberry Pi.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## What I Learned
+Through my project, I developed proficiency in ReactJS, Typescript, and WebSockets in order to create this responsive web applications with real-time communication capabilities. Additionally, I gained hands-on experience in leveraging Raspberry Pi for IoT applications, enabling interactive real-world interactions with physical devices.
 
-## Learn More
+## Requirements
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- A [Raspberry Pi](https://www.raspberrypi.com)
 
-### Code Splitting
+- A [Phillips Hue Smart Plug](https://www.philips-hue.com/en-us/p/hue-smart-plug/046677552343)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- Python 3.x installed on your Raspberry Pi.
 
-### Analyzing the Bundle Size
+- Node.js and npm (Node Package Manager) installed on your Raspberry Pi.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- A [DHT11 temperature sensor](https://www.amazon.com/Temperature-Humidity-Digital-3-3V-5V-Raspberry/dp/B07WT2HJ4F/ref=sr_1_5?keywords=dht11&qid=1695258164&sr=8-5)
